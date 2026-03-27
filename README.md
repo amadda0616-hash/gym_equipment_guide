@@ -5,6 +5,7 @@
 
 [1. 프로젝트 소개](#1-프로젝트-소개) <br>
   - [목표](#목표)
+  - [데이터셋 주소](#데이터셋 주소)
   
 [2. 파이프라인](#2-파이프라인) <br>
   - [phase 0: 데이터 정제](#phase 0: 데이터 정제)
@@ -47,6 +48,23 @@
    - **youtube_url** (운동 영상 링크 — 현재 공란이면 버튼 미표시)
   
 7. 위 가이드를 gradio를 이용해 웹서비스를 제작하고 app을 통해 온디바이스로도 사용가능하게 제작
+
+### 데이터셋 주소
+
+1. Fitness Equipment Recognition Computer Vision Model 
+https://universe.roboflow.com/fitness-equipment-recognition-colin-pruzek/fitness-equipment-recognition-wlluo/dataset/3
+2. fitness_equipments Computer Vision Dataset
+https://universe.roboflow.com/athenazhang/fitness_equipments/dataset/3
+3. Gym Equipment Detector Computer Vision Model 
+https://universe.roboflow.com/hamzas-workspace-lgrj3/gym-equipment-detector-xzyer/dataset/3
+4. Gym Equipment Computer Vision Dataset
+https://universe.roboflow.com/xiaoshis-workspace/gym-equipment-t6kck/dataset/1
+5. Gym Computer Vision Model
+[https://universe.roboflow.com/myworkspace-czk94/gym-equipment-qkvbl/dataset/1](https://universe.roboflow.com/data-science-afe7n/gym-5mrjy/dataset/1)
+6. 
+  
+7.  LA Fitness Machines Computer Vision Model
+https://universe.roboflow.com/gymlens-for-la-fitness-mvp-6lhrg/la-fitness-machines-jrgny/dataset/2
 
 # 2. 파이프라인
 
@@ -126,10 +144,51 @@ $\color{blue}{\text{﻿Step 1-2. ﻿클래스 정리 remove classes.py, data.yam
 스트레칭용도이거나 단일 동작 목적이라서 직관적이거나 운동 기구가 아니기 때문이다. 
 제거된 5개 클래스의 이미지 데이터는 비교용의 배경 데이터로 사용한다. 
 
-$\color{blue}{\text{﻿Step 1-3. ﻿CSV파일 제작 create eda_csv.py}}$
+$\color{blue}{\text{﻿Step 1-3. ﻿CSV파일 제작 create eda csv.py}}$
 
 ﻿EDA 이후 최종 정리된 데이터셋에 대해 csv를 제작한다. 
 이를 통해 데이터셋이 위 증강, 오버샘플링, 라벨링 등이 제대로 적용되었는지 확인한다. 이후 결과 분석 단계에서 비교 용도로 사용가능하다.
+
+### $\color{blue}{\text{Phase 2: ﻿YOLO26 모델 학습 및 성능 튜닝}}$
+
+$\color{blue}{\text{﻿Step 2-1. 모델 선택 및 기본 설정}}$
+
+<img width="851" height="361" alt="image" src="https://github.com/user-attachments/assets/a9442770-f147-45eb-ae10-71d34601e024" />
+
+﻿> time = 1.8 (108분)으로 epoch 15진행 phase 5의 서비스 제작 체크로 epoch 15로도 좋은 성능이 나와 베이스라인은 이대로 진행.
+
+$\color{blue}{\text{﻿Step 2-2. ﻿증강(Augmentation) 설정}}$
+
+<img width="851" height="382" alt="image" src="https://github.com/user-attachments/assets/ffe7578f-6a26-4291-bae4-43b19ea401ad" />
+
+$\color{blue}{\text{﻿Step 2-3. ﻿﻿YOLO26 아키텍처 특성 반영}}$
+
+﻿- NMS-Free end-to-end 추론: YOLO26은 NMS 후처리가 제거되었습니다. conf threshold와 max_det 값을 검증 단계에서 면밀히 조정하세요.
+- STAL (Small-Target-Aware Label Assignment): 소형 객체 탐지 성능이 내장 개선되어 있으므로, 별도의 소형 객체 대응 전략은 불필요합니다.
+- ProgLoss (Progressive Loss Balancing): 학습 안정화가 내장되어 있어, 학습 초반 불안정 시 별도 스케줄링 조정이 덜 필요합니다.
+- DFL 제거: CoreML/TFLite 변환이 간소화되어 Phase 5 iOS 배포에 직접적 이점이 있습니다.
+
+### $\color{blue}{\text{Phase 3: ﻿성능 검증 및 테스트}}$
+
+$\color{blue}{\text{﻿Step 2-1. 모델 선택 및 기본 설정}}$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
