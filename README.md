@@ -86,7 +86,7 @@ $\color{blue}{\text{Step 0-1. 극소 클래스 4개 제거}}$
 
 ﻿아래 4개 클래스는 train 이미지 수가 너무 적어 어떤 증강 기법으로도 유의미한 학습이 불가능합니다. data.yaml에서 제거하고, 해당 라벨 파일에서 관련 바운딩 박스 행을 삭제합니다.
 
-<img width="937" height="326" alt="image" src="https://github.com/user-attachments/assets/df5e538f-3a13-4c91-a2e9-32be5e7d5102" />
+<img width="470" height="160" alt="image" src="https://github.com/user-attachments/assets/df5e538f-3a13-4c91-a2e9-32be5e7d5102" />
 
 
 $\color{blue}{\text{﻿﻿﻿Step 0-2. data.yaml 수정 (이후 클래스 추가 제거로 인해 추가 수정)}}$
@@ -97,7 +97,7 @@ $\color{blue}{\text{step 0-3. 희소 클래스 오버샘플링}}$
 
 ﻿300장 미만인 클래스에 대해 이미지와 라벨 파일을 함께 복사하여 학습 폴더에 추가합니다. 복사된 파일명에 접미사(예: _aug1, _aug2)를 붙여 원본과 구분합니다.
   
-<img width="851" height="410" alt="image" src="https://github.com/user-attachments/assets/dd3beaa1-17c0-49a6-8504-c7ceffb23895" />
+<img width="425" height="205" alt="image" src="https://github.com/user-attachments/assets/dd3beaa1-17c0-49a6-8504-c7ceffb23895" />
 
 ﻿오버샘플링 후 불균형 비율: 4,368:294 = 약 15:1 (정리 전 2,184:1 대비 대폭 개선)
 
@@ -153,13 +153,13 @@ $\color{blue}{\text{﻿Step 1-3. ﻿CSV파일 제작 create eda csv.py}}$
 
 $\color{blue}{\text{﻿Step 2-1. 모델 선택 및 기본 설정}}$
 
-<img width="851" height="361" alt="image" src="https://github.com/user-attachments/assets/a9442770-f147-45eb-ae10-71d34601e024" />
+<img width="425" height="180" alt="image" src="https://github.com/user-attachments/assets/a9442770-f147-45eb-ae10-71d34601e024" />
 
 ﻿> time = 1.8 (108분)으로 epoch 15진행 phase 5의 서비스 제작 체크로 epoch 15로도 좋은 성능이 나와 베이스라인은 이대로 진행.
 
 $\color{blue}{\text{﻿Step 2-2. ﻿증강(Augmentation) 설정}}$
 
-<img width="851" height="382" alt="image" src="https://github.com/user-attachments/assets/ffe7578f-6a26-4291-bae4-43b19ea401ad" />
+<img width="425" height="190" alt="image" src="https://github.com/user-attachments/assets/ffe7578f-6a26-4291-bae4-43b19ea401ad" />
 
 $\color{blue}{\text{﻿Step 2-3. ﻿﻿YOLO26 아키텍처 특성 반영}}$
 
@@ -170,25 +170,51 @@ $\color{blue}{\text{﻿Step 2-3. ﻿﻿YOLO26 아키텍처 특성 반영}}$
 
 ### $\color{blue}{\text{Phase 3: ﻿성능 검증 및 테스트}}$
 
-$\color{blue}{\text{﻿Step 2-1. 모델 선택 및 기본 설정}}$
+$\color{blue}{\text{﻿Step 3-1. ﻿전체 성능 지표 확인}}$
+- ﻿mAP@50, mAP@50:95: 전체 클래스 기준 평균 정밀도 확인
+- Precision / Recall: 클래스별 균형 확인
+- Confusion Matrix: 클래스 간 혼동 패턴 분석 (유사 기구 간 오분류 확인)
+
+$\color{blue}{\text{﻿Step 3-2. ﻿﻿희소 클래스 개별 검증 (팩트 체크)}}$
+﻿전체 mAP에 가려질 수 있는 하위 클래스를 별도로 검증합니다. 특히 오버샘플링을 적용한 7개 클래스의 개별 AP를 확인합니다.
+
+<img width="425" height="155" alt="image" src="https://github.com/user-attachments/assets/a46c97f7-59a9-4efa-b349-90c43f8e3d51" />
+
+$\color{blue}{\text{﻿Step 3-3. ﻿﻿﻿유사 기구 혼동 분석}}$
+
+﻿헬스장 기구 특성상 형태가 유사한 클래스 쌍이 존재합니다. Confusion Matrix에서 다음 쌍의 교차 오분류율을 특별히 확인합니다.
+- Chest_Press ↔ Shoulder_Press (앉아서 미는 동작 기구)
+- Leg_Curl ↔ Leg_Extension (다리 운동 기구)
+- Elliptical ↔ Stationary_Bike (유산소 기구)
+- Aerobic_Stepper ↔ Plyo_Box (박스형 기구)
+- Kettlebell ↔ Dumbbell (손잡이형 중량 기구)
+
+$\color{blue}{\text{﻿Step 3-4. ﻿﻿﻿﻿test 이미지 추론 시각화}}$
 
 
+### $\color{blue}{\text{Phase 4: ﻿Gradio 웹 프로토타입 서비스}}$
 
+$\color{blue}{\text{﻿Step 4-1. ﻿﻿Gradio 프레임워크 기반 웹 서비스}}$
 
+$\color{blue}{\text{﻿Step 4-2. ﻿﻿﻿메타데이터 연동}}$
 
+### $\color{blue}{\text{Phase 5: ﻿ios 네이티브 앱 구축}}$
 
+$\color{blue}{\text{﻿Step 5-1. ﻿모델 배포 전략 수립}}$
 
+- ﻿YOLO26의 DFL 제거 + NMS-Free 아키텍처 덕분에 CoreML 변환이 이전 버전보다 간소화되었습니다. 두 가지 배포 전략을 병행 검토합니다.
 
+<img width="425" height="190" alt="image" src="https://github.com/user-attachments/assets/50a4ecd0-172a-4309-8ade-eb2db99764bf" />
 
+$\color{blue}{\text{﻿Step 5-2. ﻿﻿백엔드 (서버 추론 시)}}$
+﻿- FastAPI 기반 REST API 서버 구축
+- YOLO26 추론 엔드포인트 + 메타데이터 DB 연동
+- 응답 포맷: JSON (클래스 ID, confidence, bbox, 메타데이터)
 
-
-
-
-
-
-
-
-
+$\color{blue}{\text{﻿Step 5-3. ﻿﻿﻿프론트엔드 (iOS)}}$
+﻿- Swift 또는 Flutter로 iOS 전용 UI/UX 개발
+- 카메라 촬영 → 온디바이스 추론(CoreML) 또는 서버 API 호출
+- 운동 가이드 화면: 기구 정보 + 운동법 + 주의사항 + 영상 링크 통합 표시
 
 
 
