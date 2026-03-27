@@ -50,7 +50,7 @@
 
 # 2. 파이프라인
 
-$$\color{skyblue}{\text{### Phase 0: 데이터 정제}}$$
+$$\color{skyblue}{\text{Phase 0: 데이터 정제}}$$
 
 - ﻿Step 0. 데이터셋 병합 merge_dataset.py, 데이터 재분배 resplit_dataset.py
 
