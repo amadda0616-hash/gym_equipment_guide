@@ -52,7 +52,7 @@
 
 ### $\color{blue}{\text{Phase 0: 데이터 정제}}$
 
-- ﻿$\color{blue}{\text{Step 0. 데이터셋 병합 merge_dataset.py, 데이터 재분배 resplit_dataset.py}}$
+- ﻿$\color{blue}{\text{Step 0. 데이터셋 병합 merge dataset.py, 데이터 재분배 resplit dataset.py}}$
 
 ﻿1) 데이터셋 병합: 7개의 각기 다른 데이터셋은 같은 클래스에 대해 각기 다른 표기법을 사용한다.
 따라서 파편화된 명칭을 재 매핑한다. 
@@ -118,14 +118,14 @@ $\color{blue}{\text{﻿Step 1-1. 정제 후 데이터 검증 EDA}}$
 3. BBox 크기 분포 분석: 소형 객체(bbox 면적 < 32² 픽셀) 비율을 파악하여 YOLO26의 STAL 손실 함수 효과를 예측
 4. 데이터셋 간 중복 검사: 7개 소스 데이터셋 간 이미지 해시를 비교하여 train-valid-test 누수(leakage)가 없는지 확인
 
-$\color{blue}{\text{﻿Step 1-2. ﻿클래스 정리 remove_classes.py, data.yaml 수정}}$
+$\color{blue}{\text{﻿Step 1-2. ﻿클래스 정리 remove classes.py, data.yaml 수정}}$
 
 ﻿"Foam_Roller", "Yoga_Mat", "Gym_Ball", "Punching_Bag", "Dumbbell_Rack"
 이 5개의 클래스의 경우 본래 목표인 운동 기구를 사용하는 운동법, 주의사항, 운동 영상 링크 제공에 부적합하다. 
 스트레칭용도이거나 단일 동작 목적이라서 직관적이거나 운동 기구가 아니기 때문이다. 
 제거된 5개 클래스의 이미지 데이터는 비교용의 배경 데이터로 사용한다. 
 
-$\color{blue}{\text{﻿Step 1-3. ﻿CSV파일 제작 create_eda_csv.py}}$
+$\color{blue}{\text{﻿Step 1-3. ﻿CSV파일 제작 create eda_csv.py}}$
 
 ﻿EDA 이후 최종 정리된 데이터셋에 대해 csv를 제작한다. 
 이를 통해 데이터셋이 위 증강, 오버샘플링, 라벨링 등이 제대로 적용되었는지 확인한다. 이후 결과 분석 단계에서 비교 용도로 사용가능하다.
