@@ -52,8 +52,7 @@
 
 ### $\color{blue}{\text{Phase 0: 데이터 정제}}$        
 
-
-- ﻿$\color{blue}{\text{Step 0. 데이터셋 병합 merge dataset.py, 데이터 재분배 resplit dataset.py}}$
+﻿$\color{blue}{\text{Step 0. 데이터셋 병합 merge dataset.py, 데이터 재분배 resplit dataset.py}}$
 
 ﻿1) 데이터셋 병합: 7개의 각기 다른 데이터셋은 같은 클래스에 대해 각기 다른 표기법을 사용한다.
 따라서 파편화된 명칭을 재 매핑한다. 
@@ -65,17 +64,17 @@
 이때 images와 labels가 같이 이동되도록 List 형태의 가상 풀로 통합한다.
 랜덤 셔플 및 인덱스 분할로 재배치한다. 
 
-- ﻿$\color{blue}{\text{Step 0-1. 극소 클래스 4개 제거}}$
+$\color{blue}{\text{Step 0-1. 극소 클래스 4개 제거}}$
 
 ﻿아래 4개 클래스는 train 이미지 수가 너무 적어 어떤 증강 기법으로도 유의미한 학습이 불가능합니다. data.yaml에서 제거하고, 해당 라벨 파일에서 관련 바운딩 박스 행을 삭제합니다.
 
 <img width="937" height="326" alt="image" src="https://github.com/user-attachments/assets/df5e538f-3a13-4c91-a2e9-32be5e7d5102" />
 
-- $\color{blue}{\text{﻿﻿﻿Step 0-2. data.yaml 수정 (이후 클래스 추가 제거로 인해 추가 수정)}}$
+$\color{blue}{\text{﻿﻿﻿Step 0-2. data.yaml 수정 (이후 클래스 추가 제거로 인해 추가 수정)}}$
 
  nc: 37 → nc: 33으로 변경하고, names 리스트에서 4개 클래스를 제거합니다. 이때 클래스 인덱스가 변경되므로, 모든 라벨(.txt) 파일의 클래스 번호를 새 인덱스에 맞게 리매핑해야 합니다.
 
-- $\color{blue}{\text{step 0-3. 희소 클래스 오버샘플링}}$
+$\color{blue}{\text{step 0-3. 희소 클래스 오버샘플링}}$
 
 ﻿300장 미만인 클래스에 대해 이미지와 라벨 파일을 함께 복사하여 학습 폴더에 추가합니다. 복사된 파일명에 접미사(예: _aug1, _aug2)를 붙여 원본과 구분합니다.
   
