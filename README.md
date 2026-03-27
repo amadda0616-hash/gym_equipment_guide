@@ -73,7 +73,7 @@ https://universe.roboflow.com/gymlens-for-la-fitness-mvp-6lhrg/la-fitness-machin
 
 ### $\color{blue}{\text{Phase 0: 데이터 정제}}$        
 
- ﻿$\color{blue}{\text{Step 0. 데이터셋 병합 merge dataset.py, 데이터 재분배 resplit dataset.py}}$
+ ﻿$\color{blue}{\text{Step 0. 데이터셋 병합 merge dataset.py, 데이터 재분배 resplit dataset.py, 포즈 데이터 삭제 remove_workout_pose.py}}$
 
 ﻿1) 데이터셋 병합: 7개의 각기 다른 데이터셋은 같은 클래스에 대해 각기 다른 표기법을 사용한다.
 따라서 파편화된 명칭을 재 매핑한다. 
@@ -83,7 +83,12 @@ https://universe.roboflow.com/gymlens-for-la-fitness-mvp-6lhrg/la-fitness-machin
 
 2) 데이터 재배치: 7개의 각기 다른 데이터셋은 train, test, valid 분배 비율이 각기 다르다. 병합된 데이터셋을 확인해 8:1:1의 비율로 다시 재배치한다. 
 이때 images와 labels가 같이 이동되도록 List 형태의 가상 풀로 통합한다.
-랜덤 셔플 및 인덱스 분할로 재배치한다. 
+랜덤 셔플 및 인덱스 분할로 재배치한다.
+
+3) 포즈 데이터 삭제: 이미지 데이터셋을 roboflow 에서 가져올때 여러 데이터셋을 가져오다 보니 장비 이미지가 아닌 포즈 이미지 데이터가 일부 섞이는 오염이 발생.
+검은 패딩(letterbox) — 좌우 가장자리 30px의 평균 밝기가 15 미만 (세로 영상에서 추출된 프레임의 특징)
+모든 bbox가 소형 — 이미지 대비 면적 5% 미만 (기구가 아니라 손에 쥔 도구 수준)
+두 기준으로 삭제 진행
 
 $\color{blue}{\text{Step 0-1. 극소 클래스 4개 제거}}$
 
@@ -291,7 +296,6 @@ $\color{blue}{\text{﻿Step 5-3. ﻿﻿﻿프론트엔드 (iOS)}}$
 
 ### 보완할 점
 
-- 이미지 데이터셋을 roboflow 에서 가져올때 여러 데이터셋을 가져오다 보니 장비 이미지가 아닌 포즈 이미지 데이터가 일부 섞이는 오염이 발생. 이를 선택 삭제 필요합니다.
 - 본래 목적은 헬스장의 처음보는 독특한 머신의 명칭과 사용방법을 알기 위해 선정한 주제이지만 이후 찾아보니 일반적이지 않은 머신들은 대부분 특정 제조업체의 독창적인 제품이고 이 수가 매우 많으며 업체에 요청해 api를 받는게 아니면 데이터셋을 만들기가 현실적으로 어렵다는 것을 확인했습니다.
 - 제공하는 자세에 대한 참고 이미지는 구글링을 통해 찾은 뒤 보정을 한 이미지로 상업적 사용이 불가능합니다. 하지만 YOLO의 Pose estimation 등을 사용해 유튜브의 자세 교육 동영상들을 학습하여 자체 데이터 생성이 가능해 보입니다.
 - 온디바이스의 경우 사용자의 자세를 실시간 입력해 자세 교정 멘트를 제공할수도 있습니다.
