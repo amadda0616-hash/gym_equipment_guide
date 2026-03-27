@@ -197,9 +197,23 @@ $\color{blue}{\text{﻿Step 3-4. ﻿﻿﻿﻿test 이미지 추론 시각화}}$
 
 ### $\color{blue}{\text{Phase 4: ﻿Gradio 웹 프로토타입 서비스}}$
 
-$\color{blue}{\text{﻿Step 4-1. ﻿﻿Gradio 프레임워크 기반 웹 서비스}}$
+$\color{blue}{\text{﻿Step 4-1. ﻿메타데이터 (JSON) 고도화 (equipment_guide_v4.json)}}$
+﻿> 학습이 완료된 타겟 클래스 28개(유산소 4종, 근력 24종)에 대한 전문가 수준의 JSON 데이터베이스를 구축 및 연동합니다.
+﻿- 정보 구성: 기구 정밀 세팅법(machine_setup), 통증 발생 시 대처법(pain_management), 세부 운동 모드별 호흡법(breathing) 및 가이드.
+- 유튜브 맞춤 연동: 각 기구의 세부 운동 모드(exercise_modes) 특성에 맞춰, 조회수가 높고 길이가 짧은 한국어 기반 쇼츠(1분 요약) 검색 다이내믹 링크(youtube_url)를 46개 매핑 완료.
+- 시각적 가이드 매핑: 근력 운동의 수축(concentric) 및 이완(eccentric) 동작, 유산소(cardio) 동작을 보여주는 에셋 파일명을 JSON 구조에 할당.
 
-$\color{blue}{\text{﻿Step 4-2. ﻿﻿﻿메타데이터 연동}}$
+$\color{blue}{\text{﻿Step 4-2. ﻿﻿﻿﻿시각적 가이드 에셋 전처리 파이프라인 (resize_images.py)}}$
+> ﻿Gradio UI에서 이미지가 깨지거나 레이아웃이 틀어지는 것을 방지하기 위한 전처리 스크립트를 운용합니다.
+- 비율 유지 리사이징: 수집된 원본 자세 이미지의 가로세로 비율(Aspect Ratio)을 파괴하지 않고 가장 긴 변을 640px에 맞춤.
+- 레터박싱(Letterboxing) 처리: 남는 여백 공간은 YOLO 학습 기본 패딩 색상(RGB: 114, 114, 114)으로 채워 640x640 정방형 이미지를 자동 생성하여 assets/images/ 디렉토리에 저장.<img width="851" height="130" alt="image" src="https://github.com/user-attachments/assets/f356b563-570b-4093-8c07-90aa794ec761" />
+
+$\color{blue}{\text{﻿Step 4-3. ﻿﻿﻿﻿﻿Gradio 프레임워크 기반 웹 UI 추론 구현 (app.py)}}$
+> ﻿YOLO 모델과 JSON 메타데이터를 결합하여 사용자 피드백을 실시간으로 제공하는 인터페이스를 구축합니다.<img width="937" height="51" alt="image" src="https://github.com/user-attachments/assets/7ce9c99c-86d8-4ffb-bd08-20bebca3f51d" />
+- ﻿입력 인터페이스: 웹캠 촬영 및 로컬 이미지 업로드 동시 지원.
+- YOLO 추론 연동: 학습된 가중치(best.pt)를 로드하여 이미지 내 기구를 NMS-Free End-to-End 방식으로 탐지하고 바운딩 박스를 시각화.
+- 동적 UI 렌더링: 탐지된 객체(가장 Confidence가 높은 기구 1개)의 영문 클래스명을 키(Key)값으로 사용하여, equipment_guide_v4.json에서 해당 데이터를 파싱. 화면 우측에 아코디언(Accordion) 메뉴 형태로 세팅법, 통증 관리, 갤러리 이미지, 유튜브 링크를 렌더링.
+
 
 ### $\color{blue}{\text{Phase 5: ﻿ios 네이티브 앱 구축}}$
 
@@ -244,6 +258,37 @@ $\color{blue}{\text{﻿Step 5-3. ﻿﻿﻿프론트엔드 (iOS)}}$
 |   name   | YOLO26 model | epoch | batch | imgsz | metric (mAP50) |
 |:--------:|:------------:|:-----:|:-----:|:-----:|:-----------------:|
 | baseline |     small    |   15  |  48  |  640  |       0.950      |
+
+
+<img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/b2856bac-37b3-400e-b0e6-a4ccf7bce11f" />
+
+> 유사 기구 혼동 매트릭스 결과
+<img width="450" height="400" alt="image" src="https://github.com/user-attachments/assets/d5337b30-0f62-462d-b0e1-9c9d5b8c02a5" />
+
+> Test 이미지 추론 시각화 결과
+<img width="900" height="900" alt="image" src="https://github.com/user-attachments/assets/0a864ff9-392c-4c57-8ea9-b7b26f54e5e2" />
+
+## 실험 1: 외부 .pt 파일 (사용한 데이터셋의 일부(7개 중 1개 데이터셋으로 학습))이 학습에 반영 되었을때 성능 변화 비교 
+- 같은 주제를 선정한 정영석님의 small.pt를 학습에 활용
+
+## 실험 2: model size & epoch 변경 (medium, nano)
+- 같은 주제를 선정한 정영석님의 nano.pt, small.pt, medium.pt 를 학습에 활용
+
+# 5. 결과
+
+## 실험 1: 외부 .pt파일 적용 결과
+
+## 실험 2: model size & epoch 변경 결과
+
+# 6. 프로젝트 회고
+
+### 어려웠던 점
+
+
+### 보완할 점
+
+- 이미지 데이터셋을 roboflow 에서 가져올때 여러 데이터셋을 가져오다 보니 장비 이미지가 아닌 포즈 이미지 데이터가 일부 섞이는 오염이 발생. 이를 선택 삭제 필요합니다.
+- 본래 목적은 헬스장의 처음보는 독특한 머신의 명칭과 사용방법을 알기 위해 선정한 주제이지만 이후 찾아보니 독
 
 
 
