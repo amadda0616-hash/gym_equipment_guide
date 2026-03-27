@@ -52,7 +52,7 @@
 
 ### $\color{blue}{\text{Phase 0: 데이터 정제}}$
 
-- ﻿$\color{blue}{\text{Step 0.  데이터셋 병합 merge_dataset.py, 데이터 재분배 resplit_dataset.py}}$
+- ﻿$\color{blue}{\text{Step 0. 데이터셋 병합 merge_dataset.py, 데이터 재분배 resplit_dataset.py}}$
 
 ﻿1) 데이터셋 병합: 7개의 각기 다른 데이터셋은 같은 클래스에 대해 각기 다른 표기법을 사용한다.
 따라서 파편화된 명칭을 재 매핑한다. 
