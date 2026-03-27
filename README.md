@@ -52,7 +52,7 @@
 
 ### $\color{blue}{\text{Phase 0: 데이터 정제}}$        
 
-﻿$\color{blue}{\text{Step 0. 데이터셋 병합 merge dataset.py, 데이터 재분배 resplit dataset.py}}$
+ ﻿$\color{blue}{\text{Step 0. 데이터셋 병합 merge dataset.py, 데이터 재분배 resplit dataset.py}}$
 
 ﻿1) 데이터셋 병합: 7개의 각기 다른 데이터셋은 같은 클래스에 대해 각기 다른 표기법을 사용한다.
 따라서 파편화된 명칭을 재 매핑한다. 
@@ -70,6 +70,7 @@ $\color{blue}{\text{Step 0-1. 극소 클래스 4개 제거}}$
 
 <img width="937" height="326" alt="image" src="https://github.com/user-attachments/assets/df5e538f-3a13-4c91-a2e9-32be5e7d5102" />
 
+
 $\color{blue}{\text{﻿﻿﻿Step 0-2. data.yaml 수정 (이후 클래스 추가 제거로 인해 추가 수정)}}$
 
  nc: 37 → nc: 33으로 변경하고, names 리스트에서 4개 클래스를 제거합니다. 이때 클래스 인덱스가 변경되므로, 모든 라벨(.txt) 파일의 클래스 번호를 새 인덱스에 맞게 리매핑해야 합니다.
@@ -82,7 +83,7 @@ $\color{blue}{\text{step 0-3. 희소 클래스 오버샘플링}}$
 
 ﻿오버샘플링 후 불균형 비율: 4,368:294 = 약 15:1 (정리 전 2,184:1 대비 대폭 개선)
 
-- $\color{blue}{\text{step ﻿0-4. 학습 전 추가 성능 개선 작업}}$
+$\color{blue}{\text{step ﻿0-4. 학습 전 추가 성능 개선 작업}}$
 
 ﻿데이터 양을 늘리거나 품질을 높이는 다음 작업들은 학습 전에 수행할수록 모델 성능에 직접적인 영향을 줍니다.
 
