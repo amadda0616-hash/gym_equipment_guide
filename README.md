@@ -197,14 +197,14 @@ $\color{blue}{\text{﻿Step 3-4. ﻿﻿﻿﻿test 이미지 추론 시각화}}$
 
 ### $\color{blue}{\text{Phase 4: ﻿Gradio 웹 프로토타입 서비스}}$
 
-$\color{blue}{\text{﻿Step 4-1. ﻿메타데이터 (JSON) 고도화 (equipment_guide_v4.json)}}$
+$\color{blue}{\text{﻿Step 4-1. ﻿메타데이터 (JSON) 고도화 (equipment guide_v4.json)}}$
 
 ﻿> 학습이 완료된 타겟 클래스 28개(유산소 4종, 근력 24종)에 대한 전문가 수준의 JSON 데이터베이스를 구축 및 연동합니다.
 ﻿- 정보 구성: 기구 정밀 세팅법(machine_setup), 통증 발생 시 대처법(pain_management), 세부 운동 모드별 호흡법(breathing) 및 가이드.
 - 유튜브 맞춤 연동: 각 기구의 세부 운동 모드(exercise_modes) 특성에 맞춰, 조회수가 높고 길이가 짧은 한국어 기반 쇼츠(1분 요약) 검색 다이내믹 링크(youtube_url)를 46개 매핑 완료.
 - 시각적 가이드 매핑: 근력 운동의 수축(concentric) 및 이완(eccentric) 동작, 유산소(cardio) 동작을 보여주는 에셋 파일명을 JSON 구조에 할당.
 
-$\color{blue}{\text{﻿Step 4-2. ﻿﻿﻿﻿시각적 가이드 에셋 전처리 파이프라인 (resize_images.py)}}$
+$\color{blue}{\text{﻿Step 4-2. ﻿﻿﻿﻿시각적 가이드 에셋 전처리 파이프라인 (resize images.py)}}$
 
 > ﻿Gradio UI에서 이미지가 깨지거나 레이아웃이 틀어지는 것을 방지하기 위한 전처리 스크립트를 운용합니다.
 - 비율 유지 리사이징: 수집된 원본 자세 이미지의 가로세로 비율(Aspect Ratio)을 파괴하지 않고 가장 긴 변을 640px에 맞춤.
