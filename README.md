@@ -5,24 +5,27 @@
 
 [1. 프로젝트 소개](#1-프로젝트-소개) <br>
   - [목표](#목표)
-  - [데이터셋 주소](#데이터셋 주소)
+  - [데이터셋 주소](#데이터셋-주소)
   
 [2. 파이프라인](#2-파이프라인) <br>
-  - [phase 0: 데이터 정제](#phase 0: 데이터 정제)
-  - [phase 1: EDA + 전처리](#phase 1: EDA + 전처리)
-  - [phase 2: 실험 (YOLO26 학습)](#phase 2: 실험)
-  - [phase 3: 결과 (성능 검증)](#phase 3: 결과)
-  - [phase 4: Gradio 웹서비스](#phase 4: Gradio 웹서비스)
-  - [phase 5: ios 앱 서비스](#phase 5: ios 앱 서비스) 
+  - [phase 0: 데이터 정제](#phase-0:-데이터-정제)
+  - [phase 1: EDA + 전처리](#phase-1:-EDA-+-전처리)
+  - [phase 2: 실험 (YOLO26 학습)](#phase-2:-실험)
+  - [phase 3: 결과 (성능 검증)](#phase-3:-결과)
+  - [phase 4: Gradio 웹서비스](#phase-4:-Gradio-웹서비스)
+  - [phase 5: ios 앱 서비스](#phase-5:-io-앱-서비스) 
 
-[3. 실험](#3-실험) <br>
+[3. 데이터](#3-데이터) <br>
+  - [EDA 요약](#eda-요약)
+
+[4. 실험](#3-실험) <br>
   - [baseline](#0-baseline)
 
-[4. 결과](#4-결과) <br>
+[5. 결과](#4-결과) <br>
 
-[5. 프로젝트 회고](#5-프로젝트-회고) <br>
+[6. 프로젝트 회고](#5-프로젝트-회고) <br>
   - [어려웠던 점](#어려웠던-점)
-  - [배운 점](#배운-점)
+  - [보완할 점](#보완할-점)
 
 
 # 1. 프로젝트 소개
@@ -215,6 +218,32 @@ $\color{blue}{\text{﻿Step 5-3. ﻿﻿﻿프론트엔드 (iOS)}}$
 ﻿- Swift 또는 Flutter로 iOS 전용 UI/UX 개발
 - 카메라 촬영 → 온디바이스 추론(CoreML) 또는 서버 API 호출
 - 운동 가이드 화면: 기구 정보 + 운동법 + 주의사항 + 영상 링크 통합 표시
+
+<br>
+
+# 3. 데이터
+- 데이터 전처리 이후 image 파일 이름과 label을 통해 추출한 정보
+
+<img width="280" height="340" alt="image" src="https://github.com/user-attachments/assets/8b2bcb81-7a25-42b4-8667-160239e91861" />
+
+<img width="900" height="400" alt="image" src="https://github.com/user-attachments/assets/0b56e586-4df5-4fcc-8c11-81994e8a6d75" />
+
+── Split 비율 체크 ──
+  Train: 35761장 (82.5%)
+  Valid: 3799장 (8.8%)
+  Test: 3790장 (8.7%)
+  
+<img width="175" height="220" alt="image" src="https://github.com/user-attachments/assets/7ed86e9d-13a8-4c3b-8061-db4004eaec41" />
+
+<img width="900" height="245" alt="image" src="https://github.com/user-attachments/assets/c3453aad-9dc5-4a2e-82ff-0c1bb9efac2d" />
+
+# 4. 실험
+
+## 0. baseline
+
+|   name   | YOLO26 model | epoch | batch | imgsz | metric (mAP50) |
+|:--------:|:------------:|:-----:|:-----:|:-----:|:-----------------:|
+| baseline |     small    |   15  |  48  |  640  |       0.950      |
 
 
 
