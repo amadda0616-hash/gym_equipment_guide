@@ -149,7 +149,7 @@ $\color{blue}{\text{﻿Step 1-1. 정제 후 데이터 검증 EDA}}$
 크로스 스플릿 중복: 71건
 40×640 리사이징 시 파일 헤더가 유사해져서 발생하는 오탐인지 확인 check_duplicates.py
   
-![dup_002_train_vs_train_vs_test](https://github.com/user-attachments/assets/a7f988a3-dfe3-402a-8b1a-8cb5f4fbd010)
+![dup_002_train_vs_train_vs_test](https://github.com/user-attachments/assets/169ead41-0914-4ee0-bc38-60033e3ab111)
 
 결과 실제 중복 확인 이후 삭제
 
