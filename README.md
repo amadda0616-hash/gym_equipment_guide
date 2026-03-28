@@ -145,6 +145,14 @@ $\color{blue}{\text{﻿Step 1-1. 정제 후 데이터 검증 EDA}}$
 3. BBox 크기 분포 분석: 소형 객체(bbox 면적 < 32² 픽셀) 비율을 파악하여 YOLO26의 STAL 손실 함수 효과를 예측
 4. 데이터셋 간 중복 검사: 7개 소스 데이터셋 간 이미지 해시를 비교하여 train-valid-test 누수(leakage)가 없는지 확인
 
+- 데이터셋 간 중복 검사 결과 
+크로스 스플릿 중복: 71건
+40×640 리사이징 시 파일 헤더가 유사해져서 발생하는 오탐인지 확인 check_duplicates.py
+  
+![dup_002_train_vs_train_vs_test](https://github.com/user-attachments/assets/a7f988a3-dfe3-402a-8b1a-8cb5f4fbd010)
+
+결과 실제 중복 확인 이후 삭제
+
 $\color{blue}{\text{﻿Step 1-2. ﻿클래스 정리 remove classes.py, data.yaml 수정}}$
 
 ﻿"Foam_Roller", "Yoga_Mat", "Gym_Ball", "Punching_Bag", "Dumbbell_Rack"
