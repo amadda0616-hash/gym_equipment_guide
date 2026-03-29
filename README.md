@@ -85,7 +85,7 @@ https://universe.roboflow.com/gymlens-for-la-fitness-mvp-6lhrg/la-fitness-machin
 
 ### $\color{blue}{\text{Phase 0: 데이터 정제}}$        
 
-- ﻿$\color{blue}{\text{Step 0. 데이터셋 병합 merge dataset.py, 데이터 재분배 resplit dataset.py, 포즈 데이터 삭제 remove workout pose.py}}$
+﻿$\color{blue}{\text{Step 0. 데이터셋 병합 merge dataset.py, 데이터 재분배 resplit dataset.py, 포즈 데이터 삭제 remove workout pose.py}}$
 
 ﻿1) 데이터셋 병합: 7개의 각기 다른 데이터셋은 같은 클래스에 대해 각기 다른 표기법을 사용한다.
 따라서 파편화된 명칭을 재 매핑한다. 
