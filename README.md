@@ -33,8 +33,8 @@
   - [최종 모델 선정](#5-6._최종_모델_선정)
 
 [6. Gradio 서비스 및 app 서비스 구현](#6-Gradio_서비스_및_app_서비스_구현) <br>
-  - [어려웠던 점](#어려웠던-점)
-  - [보완할 점](#보완할-점)
+  - [Gradio 웹서비스](#6-1._Gradio_웹서비스)
+  - [Fast API + PWA 웹앱 서비스](#6-2._Fast_API_+_PWA_웹앱_서비스)
 
 [7. 프로젝트 회고](#6-프로젝트-회고) <br>
   - [어려웠던 점](#어려웠던-점)
@@ -455,6 +455,100 @@ check_duplicates.py로 데이터 leak 처리 완료
 4. **동등한 성능** — yolo26m(실험 B)과 mAP@50 차이 0.0004로 실사용 구분 불가
 
 # 6. Gradio 서비스 및 app 서비스 구현
+
+### 6-1. Gradio 웹서비스
+
+- 목표: 초기 **Gradio 프로토타입**으로 구축한 뒤, 최종적으로 Windows/WSL 환경에서도 iPhone에서 네이티브 앱처럼 동작할 수 있는 **FastAPI + PWA 웹앱**으로 전환
+
+1. Phase 1: 메타데이터 및 에셋 준비 (JSON & Images)
+
+   1) 아래 구조로 메타데이터 구성
+      
+      equipment_guide.json
+      ├── heart_rate_zones: {Zone 1~5 설명}
+      └── equipment_list: {28개 기구}
+          └── 각 기구:
+              ├── category: "유산소 운동" | "근력운동"
+              ├── ko_name: "한글명"
+              ├── machine_setup: [셋업 순서] (근력 24개만)
+              ├── pre_post_stretching: {부위: 동작} (유산소 4개만)
+              ├── pain_management: {증상: 대처법}
+              └── exercise_modes: [
+                    {mode_name, breathing, guide: [포인트들]}
+                  ]
+    - 유산소(cardio), 근력(strength)로 구분하고 각 기구 마다 원하는 운동을 선택.
+    - 기구 별 셋업 자세, 통증 대처법, 전후 스트레칭법 등을 제공
+    - 운동 별 동작 예시 이미지, 유튜브 링크, 운동 강도(프로필에 따라 변경)
+  
+    > 최종 28개 헬스 기구 메타데이터 (46개 운동 모드, 이미지 경로, 운동 가이드 포함)
+
+    2) 아래 구성으로 UI 구성
+
+    ### Page 0 — 사용자 프로필 입력
+      - 연령, 성별, 체중(kg), 신장(cm), 체지방율(%, 스킵 가능) 입력
+      - 연령 → 최대심박수(220-나이) 계산에 사용 (유산소 기구 선택 시 심박존 표시용)
+      - "다음" 버튼 클릭 시 Page 1로 이동
+
+    ### Page 1 — 기구 인식
+      - 이미지 업로드 또는 웹캠 촬영 → YOLO26 추론
+      - 추론 결과에 bbox + 클래스명 오버레이한 이미지 출력
+      - 인식된 기구 목록을 라디오 버튼으로 표시 (한글명 + 영문명 + 신뢰도%)
+      - 기구 선택 후 "운동 가이드 보기" 클릭 시 Page 2로 이동
+
+    ### Page 2 — 운동 가이드 상세
+      상단부터 순서대로:
+      1. **category** (유산소/근력) 배지
+      2. **ko_name** (한글 기구명)
+      3. **machine_setup** (근력 기구) 또는 **pre_post_stretching** (유산소 기구)
+      4. **pain_management** (통증 대처법)
+      5. **exercise_modes 선택 UI** — 라디오 버튼으로 모드 선택
+      6. 선택된 모드의 상세 정보:
+         - **mode_name** (모드명)
+         - **breathing** (호흡법)
+         - **guide** (자세 포인트)
+         - **exercise_images** (정자세 가이드 이미지)
+         - **youtube_url** (운동 영상 링크 — 현재 공란이면 버튼 미표시)  
+      
+3. Phase 2: Gradio 웹 프로토타입 구축 (`app.py` / `app_fitpro.py`)
+
+   1) 초기 stitch로 ui 디자인 (app.py)
+   2) 기구 인식 무한로딩, 이미지 미출력 ("이미지 준비중" 출력), ui 가독성 문제 등이 발생
+   3) base64 인코딩 방식으로 우회, gradio 업데이트, 이미지 경로 수정, ui 검은 계통으로 수정
+   4) 수정 이후 (app_fitpro.py)로 작동 확인 완료
+
+### 6-2. Fast API + PWA 웹앱 서비스
+
+
+1. 앱 초기 화면. 프로필을 작성하면 이에 따라 운동 가이드에서 적정 운동 강도, 운동량을 가이드해준다.
+
+<img width="574" height="888" alt="image" src="https://github.com/user-attachments/assets/42370ada-a1a1-4ecd-bdae-b860a76c312b" />
+
+2.사진 촬영 도는 앨범의 이미지로 입력 -> 기구 인식 커튼 클릭 -> 인식된 기구 아래 기구 이름을 터치하면 운동 가이드로 전환, 상단의 운동 이름을 클릭하면 원하는 운동 가이드로 전환.
+
+<img width="548" height="1884" alt="image" src="https://github.com/user-attachments/assets/f05fa9b6-d2e6-412a-a579-d43e49653792" />
+
+3.하단 "youtube에서 영상 보기" 클릭 후 뜨는 화면 (적절한 특정 유튜브 영상만 뜨게 링크 변경도 가증)
+
+<img width="1000" height="900" alt="image" src="https://github.com/user-attachments/assets/06099142-9533-472d-b51e-d230f7d411e8" > 
+
+4. 외부 환경 공개용 작업은 "ngrok"으로 작업
+
+## 앱 링크 : https://nonanatomic-pinkie-glibber.ngrok-free.dev
+
+> 외부 사용 시 내 pc 에서 서버 가동 필요 (상시 접속 중단 상태)
+
+5. 위 링크를 브라우저 "홈 화면에 추가" 선택해서 추가 하면 아래 아이콘 이미지가 생성됩니다. "GymBuddy"
+
+<img width="192" height="192" alt="icon-192" src="https://github.com/user-attachments/assets/b7e30707-06a9-49cb-9db0-afbba432bd36" />
+
+6. 아래 이미지를 촬영해 테스트 가능합니다.
+
+![d1_2-1-_jpg rf 4d9d00b7562526564e798dd69800c85a](https://github.com/user-attachments/assets/45f6fac9-5e86-43df-b1e3-6d0d4912f436)
+
+![d1_873_jpg rf 6d2cbc2c145c048c17ea9afa84a11ca2](https://github.com/user-attachments/assets/79478433-46f3-4ad8-8af5-e138e268f882)
+
+![d1_treadmill-6_jpeg_jpg rf 1f722ddf01718e14be5969e7487d3eb0](https://github.com/user-attachments/assets/02e43fa2-8c4c-4bda-bf03-65c39ec120e8)
+
 
 # 7. 프로젝트 회고
 
