@@ -102,18 +102,18 @@ https://universe.roboflow.com/gymlens-for-la-fitness-mvp-6lhrg/la-fitness-machin
 모든 bbox가 소형 — 이미지 대비 면적 5% 미만 (기구가 아니라 손에 쥔 도구 수준)
 두 기준으로 삭제 진행
 
-$\color{blue}{\text{Step 0-1. 극소 클래스 4개 제거}}$
+- $\color{blue}{\text{Step 0-1. 극소 클래스 4개 제거}}$
 
 ﻿아래 4개 클래스는 train 이미지 수가 너무 적어 어떤 증강 기법으로도 유의미한 학습이 불가능합니다. data.yaml에서 제거하고, 해당 라벨 파일에서 관련 바운딩 박스 행을 삭제합니다.
 
 <img width="470" height="160" alt="image" src="https://github.com/user-attachments/assets/df5e538f-3a13-4c91-a2e9-32be5e7d5102" />
 
 
-$\color{blue}{\text{﻿﻿﻿Step 0-2. data.yaml 수정 (이후 클래스 추가 제거로 인해 추가 수정)}}$
+- $\color{blue}{\text{﻿﻿﻿Step 0-2. data.yaml 수정 (이후 클래스 추가 제거로 인해 추가 수정)}}$
 
  nc: 37 → nc: 33으로 변경하고, names 리스트에서 4개 클래스를 제거합니다. 이때 클래스 인덱스가 변경되므로, 모든 라벨(.txt) 파일의 클래스 번호를 새 인덱스에 맞게 리매핑해야 합니다.
 
-$\color{blue}{\text{step 0-3. 희소 클래스 오버샘플링}}$
+- $\color{blue}{\text{step 0-3. 희소 클래스 오버샘플링}}$
 
 ﻿300장 미만인 클래스에 대해 이미지와 라벨 파일을 함께 복사하여 학습 폴더에 추가합니다. 복사된 파일명에 접미사(예: _aug1, _aug2)를 붙여 원본과 구분합니다.
   
@@ -121,11 +121,11 @@ $\color{blue}{\text{step 0-3. 희소 클래스 오버샘플링}}$
 
 ﻿오버샘플링 후 불균형 비율: 4,368:294 = 약 15:1 (정리 전 2,184:1 대비 대폭 개선)
 
-$\color{blue}{\text{step ﻿0-4. 학습 전 추가 성능 개선 작업}}$
+- $\color{blue}{\text{step ﻿0-4. 학습 전 추가 성능 개선 작업}}$
 
 ﻿데이터 양을 늘리거나 품질을 높이는 다음 작업들은 학습 전에 수행할수록 모델 성능에 직접적인 영향을 줍니다.
 
-$\color{blue}{\text{﻿(1) Albumentations 기반 오프라인 증강}}$
+- $\color{blue}{\text{﻿(1) Albumentations 기반 오프라인 증강}}$
 단순 복사 대신, Albumentations 라이브러리로 희소 클래스 이미지에 다양한 변환을 적용하여 실질적으로 다른 학습 샘플을 생성합니다.
 RandomBrightnessContrast: 헬스장의 다양한 조명 환경 시뮬레이션
 HorizontalFlip: 좌우 반전 (기구 대부분 좌우 대칭)
@@ -133,24 +133,24 @@ ShiftScaleRotate: 촬영 각도 변화 시뮬레이션 (±15° 이내)
 GaussNoise + MotionBlur: 카메라 흔들림/노이즈 시뮬레이션
 YOLO 라벨 좌표도 함께 변환해야 하므로, Albumentations의 BboxParams(format='yolo') 설정을 반드시 사용하세요.
 
-$\color{blue}{\text{(2) 라벨 품질 검증 (Sanity Check)}}$
+- $\color{blue}{\text{(2) 라벨 품질 검증 (Sanity Check)}}$
 7개 소스 데이터셋이 병합된 상태이므로 라벨링 기준이 불일치할 수 있습니다. 학습 전에 다음을 확인합니다.
 bbox 좌표 범위 검증: x, y, w, h 값이 모두 0-1 범위 내인지 확인
 빈 라벨 파일 검출: 이미지는 있으나 라벨 파일이 비어 있는 케이스 확인
 클래스 ID 유효성: 리매핑 후 모든 ID가 0-32 범위 내인지 확인
 시각적 스팟체크: 각 클래스별 랜덤 5-10장을 뽑아 bbox를 이미지 위에 그려 육안으로 확인
 
-$\color{blue}{\text{(3) 배경(Negative) 이미지 추가}}$
+- $\color{blue}{\text{(3) 배경(Negative) 이미지 추가}}$
 현재 데이터셋에는 배경 이미지(기구가 없는 헬스장 사진)가 없습니다. 배경 이미지를 전체의 1-3%(약 300-900장) 추가하면 False Positive를 줄이는 데 효과적입니다. 라벨 파일은 빈 파일(.txt)로 생성합니다.
 
-$\color{blue}{\text{(4) 앵커 프리 확인 (YOLO26 전용)}}$
+- $\color{blue}{\text{(4) 앵커 프리 확인 (YOLO26 전용)}}$
 YOLO26은 앵커 프리(anchor-free) 아키텍처이므로 별도의 앵커 분석이나 autoanchor 설정이 필요 없습니다. 기존 YOLOv5에서 사용하던 앵커 관련 작업은 건너뛰어도 됩니다.
 
 ### $\color{blue}{\text{Phase 1: 심층 EDA}}$
 
 ﻿Phase 0의 데이터 정제가 완료된 후, 정제된 데이터셋 기준으로 최종 EDA를 수행합니다.
 
-$\color{blue}{\text{﻿Step 1-1. 정제 후 데이터 검증 EDA}}$
+- $\color{blue}{\text{﻿Step 1-1. 정제 후 데이터 검증 EDA}}$
 
 ﻿1. 클래스별 최종 분포 확인: 33개 클래스의 train/valid/test 분포가 비례적인지 확인
 2. 오버샘플링 반영 확인: 복사/증강된 이미지가 정상적으로 반영되었는지 확인
