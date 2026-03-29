@@ -1,0 +1,704 @@
+{
+  "heart_rate_zones": {
+    "Zone 1": "워밍업/회복 (최대심박수 50~60%): 아주 편안한 상태. 호흡이 전혀 가쁘지 않습니다.",
+    "Zone 2": "지방 연소 (최대심박수 60~70%): 약간 땀이 나고 숨이 차지만, 옆 사람과 편안하게 대화가 가능한 상태입니다.",
+    "Zone 3": "심폐 지구력 (최대심박수 70~80%): 호흡이 가빠지며, 한두 단어로 짧게 대답할 수 있는 상태입니다.",
+    "Zone 4": "무산소 역치 (최대심박수 80~90%): 매우 힘든 상태로, 헉헉거리며 대화가 불가능합니다.",
+    "Zone 5": "최대 노력 훈련 (최대심박수 90~100%): 전력 질주 상태로 1~2분 이상 유지가 어렵습니다."
+  },
+  "equipment_list": {
+    "Treadmill": {
+      "category": "유산소 운동",
+      "ko_name": "트레드밀",
+      "pre_post_stretching": {
+        "ankle": "벽 짚고 종아리 스트레칭",
+        "hip_joint": "런지 자세 고관절 이완"
+      },
+      "pain_management": {
+        "shin_splints": "정강이 통증 시 보폭 줄이고 경사도 0 설정",
+        "knee_pain": "속도 낮추고 걷기로 전환"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "평지 걷기/러닝",
+          "breathing": "발걸음에 맞춰 '습습후후' 리듬 유지",
+          "guide": [
+            "시선 15도 앞",
+            "뒤꿈치부터 착지",
+            "L자 팔흔들기"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=핏블리+런닝머신+올바르게+쇼츠"
+        },
+        {
+          "mode_name": "경사도 걷기",
+          "breathing": "코로 깊게 마시고 입으로 길게 내뱉기",
+          "guide": [
+            "경사도 3~10% 설정",
+            "상체 약간 숙임",
+            "손잡이 잡지 않기"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=핏블리+런닝머신+올바르게+쇼츠"
+        }
+      ]
+    },
+    "Elliptical": {
+      "category": "유산소 운동",
+      "ko_name": "일립티컬",
+      "pre_post_stretching": {
+        "ankle": "발목 돌리기",
+        "hip_joint": "와이드 스쿼트 정지"
+      },
+      "pain_management": {
+        "knee_pain": "발바닥 전체 밀착 확인",
+        "foot_numbness": "신발끈 조절 및 역방향 밟기"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "전신 유산소",
+          "breathing": "일정한 페달 리듬에 맞춰 심호흡",
+          "guide": [
+            "발바닥 밀착",
+            "팔다리 5:5 힘 배분",
+            "코어 긴장 유지"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=지피티+일립티컬+1분"
+        }
+      ]
+    },
+    "Stationary_Bike": {
+      "category": "유산소 운동",
+      "ko_name": "실내 자전거",
+      "pre_post_stretching": {
+        "ankle": "앉아서 발목 돌리기",
+        "hip_joint": "서서 발등 잡고 허벅지 늘리기"
+      },
+      "pain_management": {
+        "knee_pain": "안장 높이 조절 필수 (골반 높이)",
+        "lower_back_pain": "코어 힘 유지 및 상체 고정"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "지구력 라이딩",
+          "breathing": "RPM에 맞춘 규칙적 호흡",
+          "guide": [
+            "원을 그리듯 페달링",
+            "손잡이 가볍게 쥠"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=피지컬갤러리+실내자전거+쇼츠"
+        }
+      ]
+    },
+    "Aerobic_Stepper": {
+      "category": "유산소 운동",
+      "ko_name": "에어로빅 스텝퍼",
+      "pre_post_stretching": {
+        "ankle": "스텝 끝에 발 대고 종아리 늘리기",
+        "hip_joint": "제자리 뛰기 웜업"
+      },
+      "pain_management": {
+        "knee_pain": "무릎 방향 발가락 일치 확인",
+        "ankle_pain": "발바닥 전체가 올라가게 위치"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "베이직 스텝",
+          "breathing": "올라갈 때 마시고 내려올 때 내쉬기",
+          "guide": [
+            "정면 응시",
+            "중앙 정확히 딛기"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=강경원+스텝퍼+쇼츠"
+        }
+      ]
+    },
+    "Leg_Press": {
+      "category": "근력운동",
+      "ko_name": "레그 프레스",
+      "machine_setup": [
+        "엉덩이 시트 깊숙이 밀착",
+        "무릎 90도 각도 등받이 조절",
+        "발바닥 전체 고정 확인"
+      ],
+      "pain_management": {
+        "knee_pain": "무릎 100% 펴지 않기 (95%만)",
+        "lower_back_pain": "엉덩이 들리지 않는 가동범위 준수"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "대퇴사두 집중",
+          "breathing": "내릴 때 마시고 밀 때 내쉬기",
+          "guide": [
+            "발판 하단 위치",
+            "뒤꿈치로 밀기"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=핏블리+레그프레스+발위치+1분"
+        },
+        {
+          "mode_name": "둔근/햄스트링 집중",
+          "breathing": "내릴 때 마시고 밀 때 내쉬기",
+          "guide": [
+            "발판 상단 와이드 위치",
+            "엉덩이 수축 집중"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=핏블리+레그프레스+발위치+1분"
+        }
+      ]
+    },
+    "Leg_Extension": {
+      "category": "근력운동",
+      "ko_name": "레그 익스텐션",
+      "machine_setup": [
+        "회전축과 무릎 관절 일직선",
+        "오금 시트 끝 밀착",
+        "패드 정강이 하단 위치"
+      ],
+      "pain_management": {
+        "knee_pain": "축 불일치 확인",
+        "lower_back_pain": "손잡이 당겨 엉덩이 고정"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "허벅지 전면",
+          "breathing": "올릴 때 내쉬고 내릴 때 마시기",
+          "guide": [
+            "발끝 당기기",
+            "정점 1초 멈춤"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=피지컬갤러리+레그익스텐션+쇼츠"
+        }
+      ]
+    },
+    "Leg_Curl": {
+      "category": "근력운동",
+      "ko_name": "레그 컬",
+      "machine_setup": [
+        "회전축 무릎 일치",
+        "골반 꺾인 부분 안착",
+        "패드 아킬레스건 위"
+      ],
+      "pain_management": {
+        "calf_cramp": "발목 90도 고정",
+        "lower_back_pain": "골반 패드 압박"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "햄스트링 집중",
+          "breathing": "말아 올릴 때 내쉬고 펼 때 마시기",
+          "guide": [
+            "뒷벅지 힘만 사용",
+            "천천히 이완"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=강경원+레그컬+쇼츠"
+        }
+      ]
+    },
+    "Hip_Abductor": {
+      "category": "근력운동",
+      "ko_name": "힙 어브덕터",
+      "machine_setup": [
+        "시트 깊숙이 착석",
+        "가동범위 무리하지 않게 설정"
+      ],
+      "pain_management": {
+        "hip_joint_pain": "시작 범위 조절",
+        "lower_back_pain": "코어 고정"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "중둔근 (벌리기)",
+          "breathing": "밀 때 내쉬고 모을 때 마시기",
+          "guide": [
+            "무릎으로 패드 밀기",
+            "상체 약간 숙임"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=힙으뜸+힙어브덕션+쇼츠"
+        },
+        {
+          "mode_name": "내전근 (모으기)",
+          "breathing": "모을 때 내쉬고 벌릴 때 마시기",
+          "guide": [
+            "허벅지 안쪽 힘 집중",
+            "저항 버티기"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=힙으뜸+힙어브덕션+쇼츠"
+        }
+      ]
+    },
+    "Back_Extension": {
+      "category": "근력운동",
+      "ko_name": "백 익스텐션",
+      "machine_setup": [
+        "패드 상단 고관절 접히는 곳 위치",
+        "발판 아킬레스건 고정"
+      ],
+      "pain_management": {
+        "lower_back_pain": "과신전(뒤로 꺾기) 금지"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "기립근 강화",
+          "breathing": "올라올 때 내쉬고 내려갈 때 마시기",
+          "guide": [
+            "허리 둥글게 말아 올라오기",
+            "일직선 멈춤"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=피지컬갤러리+백익스텐션+쇼츠"
+        }
+      ]
+    },
+    "Chest_Press": {
+      "category": "근력운동",
+      "ko_name": "체스트 프레스",
+      "machine_setup": [
+        "손잡이 가슴 중앙 높이",
+        "견갑골 밀착/허리 아치",
+        "발바닥 고정"
+      ],
+      "pain_management": {
+        "shoulder_pain": "팔꿈치 어깨보다 낮게 유지",
+        "wrist_pain": "손목 중립 고정"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "대흉근 전체",
+          "breathing": "밀 때 내쉬고 돌아올 때 마시기",
+          "guide": [
+            "날개뼈 고정 후 푸쉬",
+            "저항 버티며 이완"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=핏블리+체스트프레스+1분"
+        }
+      ]
+    },
+    "Chest_Fly": {
+      "category": "근력운동",
+      "ko_name": "체스트 플라이",
+      "machine_setup": [
+        "팔꿈치 어깨 수평 조절",
+        "가슴 활짝 열기"
+      ],
+      "pain_management": {
+        "shoulder_strain": "과도한 이완 자제",
+        "biceps_pain": "팔꿈치 살짝 굽힘"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "가슴 안쪽",
+          "breathing": "모을 때 내쉬고 벌릴 때 마시기",
+          "guide": [
+            "큰 나무 안듯 궤적 유지",
+            "정점 쥐어짜기"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=강경원+펙덱플라이+쇼츠"
+        }
+      ]
+    },
+    "Shoulder_Press": {
+      "category": "근력운동",
+      "ko_name": "숄더 프레스",
+      "machine_setup": [
+        "손잡이 어깨-귀 사이 높이",
+        "상체 등받이 바짝 밀착"
+      ],
+      "pain_management": {
+        "impingement": "팔꿈치 몸통 앞쪽 위치",
+        "trap_pain": "어깨 하강 고정"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "삼각근 전체",
+          "breathing": "밀 때 내쉬고 내릴 때 마시기",
+          "guide": [
+            "손목 수직 유지",
+            "귀 높이까지 천천히 내림"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=피지컬갤러리+숄더프레스+쇼츠"
+        }
+      ]
+    },
+    "Lat_Pulldown": {
+      "category": "근력운동",
+      "ko_name": "랫 풀다운",
+      "machine_setup": [
+        "허벅지 패드 타이트 세팅",
+        "어깨 1.5배 넓게 잡기"
+      ],
+      "pain_management": {
+        "rotator_cuff": "바를 가슴 쪽으로 당기기",
+        "forearm_pump": "팔꿈치로 찍어 내리기"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "광배근 타겟",
+          "breathing": "당길 때 내쉬고 올릴 때 마시기",
+          "guide": [
+            "날개뼈 하강 후 당기기",
+            "쇄골 방향 수직 하강"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=지피티+랫풀다운+1분"
+        }
+      ]
+    },
+    "Seated_Cable_Row": {
+      "category": "근력운동",
+      "ko_name": "시티드 케이블 로우",
+      "machine_setup": [
+        "무릎 살짝 굽혀 지지",
+        "척추 중립/흉추 신전"
+      ],
+      "pain_management": {
+        "lower_back_pain": "상체 반동 최소화",
+        "trap_pain": "귀와 어깨 멀게 유지"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "등 두께 집중",
+          "breathing": "당길 때 내쉬고 내릴 때 마시기",
+          "guide": [
+            "날개뼈 먼저 모으기",
+            "배꼽 쪽으로 당기기"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=강경원+시티드로우+쇼츠"
+        }
+      ]
+    },
+    "Seated_Dip": {
+      "category": "근력운동",
+      "ko_name": "시티드 딥스",
+      "machine_setup": [
+        "팔꿈치 90도 높이 조절",
+        "엉덩이 끝까지 밀착"
+      ],
+      "pain_management": {
+        "shoulder_joint_pain": "어깨 하강 고정 유지"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "아랫가슴/삼두",
+          "breathing": "밀 때 내쉬고 올라올 때 마시기",
+          "guide": [
+            "상체 살짝 숙임",
+            "수직 프레스"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=피지컬갤러리+딥스머신+쇼츠"
+        }
+      ]
+    },
+    "Assisted_Chin_Up_Dip": {
+      "category": "근력운동",
+      "ko_name": "어시스트 친업/딥스",
+      "machine_setup": [
+        "무거운 무게가 보조 강함",
+        "한쪽 무릎씩 안전하게"
+      ],
+      "pain_management": {
+        "dismount_injury": "하차 시 패드 튕김 주의"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "친업 (등)",
+          "breathing": "올라갈 때 내쉬고 내려올 때 마시기",
+          "guide": [
+            "가슴 열고 수직 이동"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=핏블리+어시스트풀업+1분"
+        }
+      ]
+    },
+    "Smith_Machine": {
+      "category": "근력운동",
+      "ko_name": "스미스 머신",
+      "machine_setup": [
+        "바벨 승모근 안착",
+        "발 한 보 앞 위치",
+        "손목 돌려 안전핀 해제"
+      ],
+      "pain_management": {
+        "knee_pain": "발 몸통보다 앞에 두기"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "스쿼트",
+          "breathing": "내려갈 때 마시고 올라갈 때 내쉬기",
+          "guide": [
+            "복압 유지",
+            "발바닥 지면 밀기"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=힙으뜸+스미스머신+스쿼트+쇼츠"
+        }
+      ]
+    },
+    "T_Bar_Row": {
+      "category": "근력운동",
+      "ko_name": "티바 로우",
+      "machine_setup": [
+        "패드 명치 위치 조절",
+        "발 단단히 지지"
+      ],
+      "pain_management": {
+        "lower_back_injury": "코어 강하게 잠그기"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "등 전체",
+          "breathing": "당길 때 내쉬고 내릴 때 마시기",
+          "guide": [
+            "팔꿈치 몸통 뒤로",
+            "날개뼈 접기"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=강경원+티바로우+쇼츠"
+        }
+      ]
+    },
+    "Barbell": {
+      "category": "근력운동",
+      "ko_name": "바벨",
+      "machine_setup": [
+        "겨드랑이 높이 랙 세팅",
+        "마구리 필수 사용"
+      ],
+      "pain_management": {
+        "lower_back_pain": "복압(Bracing) 유지",
+        "wrist_pain": "수직 저항 받기"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "백 스쿼트",
+          "breathing": "서서 복압 잡고 일어선 후 내쉬기",
+          "guide": [
+            "바 승모근 안착",
+            "고관절 힙힌지"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=짐종국+벤치프레스+스쿼트+쇼츠"
+        },
+        {
+          "mode_name": "벤치 프레스",
+          "breathing": "내릴 때 마시고 밀 때 내쉬기",
+          "guide": [
+            "견갑 고정/허리 아치",
+            "가슴 하단 터치"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=짐종국+벤치프레스+스쿼트+쇼츠"
+        }
+      ]
+    },
+    "Dumbbell": {
+      "category": "근력운동",
+      "ko_name": "덤벨",
+      "machine_setup": [
+        "벤치 각도 조절 확인",
+        "하체 힘으로 들어올리기"
+      ],
+      "pain_management": {
+        "shoulder_impingement": "팔꿈치 각도 70도",
+        "elbow_pain": "95%만 펴기"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "체스트 서포티드 로우",
+          "breathing": "당길 때 내쉬고 내릴 때 마시기",
+          "guide": [
+            "인클라인 벤치 가슴 밀착",
+            "팔꿈치 뒤로 강하게"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=핏블리+덤벨로우+1분"
+        },
+        {
+          "mode_name": "고블릿 스쿼트",
+          "breathing": "앉을 때 마시고 일어설 때 내쉬기",
+          "guide": [
+            "덤벨 가슴 앞 밀착",
+            "상체 직립 유지"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=핏블리+덤벨로우+1분"
+        }
+      ]
+    },
+    "Cable_Machine": {
+      "category": "근력운동",
+      "ko_name": "케이블 머신",
+      "machine_setup": [
+        "그립 단단히 결착",
+        "도르래 높이 조절",
+        "스플릿 스탠스 유지"
+      ],
+      "pain_management": {
+        "balance_loss": "코어 중심 유지"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "트라이셉스 푸시다운",
+          "breathing": "내릴 때 내쉬고 올릴 때 마시기",
+          "guide": [
+            "팔꿈치 옆구리 고정",
+            "팔 뒤쪽 힘"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=강경원+케이블푸시다운+쇼츠"
+        }
+      ]
+    },
+    "Kettlebell": {
+      "category": "근력운동",
+      "ko_name": "케틀벨",
+      "machine_setup": [
+        "하이크 패스 시작 자세",
+        "그립 꽉 쥐기"
+      ],
+      "pain_management": {
+        "lower_back_pain": "힙 힌지 정확히 사용"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "스윙",
+          "breathing": "튕겨낼 때 짧고 강하게 내뱉기",
+          "guide": [
+            "폭발적 엉덩이 수축",
+            "팔은 밧줄 리듬"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=피지컬갤러리+케틀벨스윙+쇼츠"
+        }
+      ]
+    },
+    "Medicine_Ball": {
+      "category": "근력운동",
+      "ko_name": "메디신 볼",
+      "machine_setup": [
+        "탄성 여부 사전 확인",
+        "가벼운 무게 시작"
+      ],
+      "pain_management": {
+        "finger_jam": "손바닥으로 받기"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "슬램",
+          "breathing": "바닥에 내리꽂을 때 내뱉기",
+          "guide": [
+            "머리 위 풀 스트레칭",
+            "전력 투구"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=메디신볼+슬램+쇼츠+자세"
+        }
+      ]
+    },
+    "Clubbell": {
+      "category": "근력운동",
+      "ko_name": "클럽벨",
+      "machine_setup": [
+        "노브 끝까지 잡기",
+        "가장 가벼운 무게 시작"
+      ],
+      "pain_management": {
+        "shoulder_joint_strain": "회전 가동범위 준수"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "실드 캐스트",
+          "breathing": "앞으로 당겨올 때 내쉬기",
+          "guide": [
+            "머리 뒤 원형 궤적",
+            "어깨 안정화"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=클럽벨+실드캐스트+자세+쇼츠"
+        }
+      ]
+    },
+    "Ab_Wheel": {
+      "category": "근력운동",
+      "ko_name": "앱 롤아웃",
+      "machine_setup": [
+        "무릎 대고 시작/매트 사용",
+        "손목 중립 고정"
+      ],
+      "pain_management": {
+        "lower_back_pain": "허리 꺾임 주의(할로우 자세)"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "무릎 대고 롤아웃",
+          "breathing": "당겨올 때 강하게 내뱉기",
+          "guide": [
+            "골반부터 펴기",
+            "복근 힘으로 리턴"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=지피티+AB슬라이드+쇼츠"
+        }
+      ]
+    },
+    "Arm_Curl": {
+      "category": "근력운동",
+      "ko_name": "암 컬",
+      "machine_setup": [
+        "겨드랑이 패드 밀착",
+        "손목 안쪽 고정"
+      ],
+      "pain_management": {
+        "inner_elbow_pain": "팔꿈치 180도 펴기 금지"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "이두 고립",
+          "breathing": "말아 올릴 때 내쉬고 내릴 때 마시기",
+          "guide": [
+            "이두근 수축 집중",
+            "버티며 이완"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=강경원+암컬머신+쇼츠"
+        }
+      ]
+    },
+    "Lateral_Raise": {
+      "category": "근력운동",
+      "ko_name": "래터럴 레이즈",
+      "machine_setup": [
+        "어깨 축 일치 세팅",
+        "패드 하부 삼두 밀착"
+      ],
+      "pain_management": {
+        "trap_pain": "무게 낮추고 하강 고정"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "측면 어깨",
+          "breathing": "올릴 때 내쉬고 내릴 때 마시기",
+          "guide": [
+            "팔꿈치 옆으로 벌리기",
+            "어깨선 높이 제한"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=핏블리+사레레+쇼츠"
+        }
+      ]
+    },
+    "Plyo_Box": {
+      "category": "근력운동",
+      "ko_name": "플라이오 박스",
+      "machine_setup": [
+        "평평한 바닥 수평 확인",
+        "흔들리지 않게 고정"
+      ],
+      "pain_management": {
+        "impact_injury": "부드러운 착지 집중"
+      },
+      "exercise_modes": [
+        {
+          "mode_name": "박스 점프",
+          "breathing": "박스 위 착지 후 내뱉기",
+          "guide": [
+            "팔 휘두르며 도약",
+            "충격 흡수하며 착지"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=박스점프+자세+쇼츠"
+        },
+        {
+          "mode_name": "스텝 업",
+          "breathing": "딛고 올라설 때 내뱉기",
+          "guide": [
+            "한 발씩 박스 등반",
+            "허벅지/엉덩이 힘"
+          ],
+          "youtube_url": "https://www.youtube.com/results?search_query=박스점프+자세+쇼츠"
+        }
+      ]
+    }
+  }
+}
