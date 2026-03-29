@@ -522,7 +522,8 @@ check_duplicates.py로 데이터 leak 처리 완료
 
 <img width="574" height="888" alt="image" src="https://github.com/user-attachments/assets/42370ada-a1a1-4ecd-bdae-b860a76c312b" />
 
-2.사진 촬영 도는 앨범의 이미지로 입력 -> 기구 인식 커튼 클릭 -> 인식된 기구 아래 기구 이름을 터치하면 운동 가이드로 전환, 상단의 운동 이름을 클릭하면 원하는 운동 가이드로 전환.
+2.사진 촬영 도는 앨범의 이미지로 입력 -> 기구 인식 커튼 클릭 -> 인식된 기구 아래 기구 이름을 터치하면 운동 가이드로 전환,      
+상단의 운동 이름을 클릭하면 원하는 운동 가이드로 전환.
 
 <img width="548" height="1884" alt="image" src="https://github.com/user-attachments/assets/f05fa9b6-d2e6-412a-a579-d43e49653792" />
 
