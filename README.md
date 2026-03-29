@@ -8,12 +8,12 @@
   - [데이터셋 주소](#데이터셋-주소)
   
 [2. 파이프라인](#2-파이프라인) <br>
-  - [phase 0: 데이터 정제](#phase-0:-데이터-정제)
-  - [phase 1: EDA + 전처리](#phase-1:-EDA-+-전처리)
-  - [phase 2: 실험 (YOLO26 학습)](#phase-2:-실험)
-  - [phase 3: 결과 (성능 검증)](#phase-3:-결과)
-  - [phase 4: Gradio 웹서비스](#phase-4:-Gradio-웹서비스)
-  - [phase 5: ios 앱 서비스](#phase-5:-io-앱-서비스) 
+  - [phase 0: 데이터 정제](#phase_0:_데이터_정제)
+  - [phase 1: EDA + 전처리](#phase_1:_EDA_+_전처리)
+  - [phase 2: 실험 (YOLO26 학습)](#phase_2:_실험)
+  - [phase 3: 결과 (성능 검증)](#phase_3:_결과)
+  - [phase 4: Gradio 웹서비스](#phase_4:_Gradio-웹서비스)
+  - [phase 5: ios 앱 서비스](#phase_5:_ios_앱_서비스) 
 
 [3. 데이터](#3-데이터) <br>
   - [EDA 요약](#eda-요약)
