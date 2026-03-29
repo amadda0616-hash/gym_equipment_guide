@@ -537,7 +537,7 @@ check_duplicates.py로 데이터 leak 처리 완료
 
 > 외부 사용 시 내 pc 에서 서버 가동 필요 (상시 접속 중단 상태)
 
-5. 위 링크를 브라우저 "홈 화면에 추가" 선택해서 추가 하면 아래 아이콘 이미지가 생성됩니다. "GymBuddy"
+5. 위 링크를 모바일 브라우저 "홈 화면에 추가" 선택해서 추가 하면 아래 아이콘 이미지가 생성됩니다. "GymBuddy"
 
 <img width="192" height="192" alt="icon-192" src="https://github.com/user-attachments/assets/b7e30707-06a9-49cb-9db0-afbba432bd36" />
 
