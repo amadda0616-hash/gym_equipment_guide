@@ -77,8 +77,7 @@ https://universe.roboflow.com/hamzas-workspace-lgrj3/gym-equipment-detector-xzye
 https://universe.roboflow.com/xiaoshis-workspace/gym-equipment-t6kck/dataset/1    
 5. Gym Computer Vision Model    
 [https://universe.roboflow.com/myworkspace-czk94/gym-equipment-qkvbl/dataset/1](https://universe.roboflow.com/data-science-afe7n/gym-5mrjy/dataset/1)    
-6. 
-  
+6. 못 찾음 (기록 x)  
 7.  LA Fitness Machines Computer Vision Model    
 https://universe.roboflow.com/gymlens-for-la-fitness-mvp-6lhrg/la-fitness-machines-jrgny/dataset/2    
 
