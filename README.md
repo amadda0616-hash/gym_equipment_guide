@@ -18,12 +18,15 @@
 [3. 데이터](#3-데이터) <br>
   - [EDA 요약](#eda-요약)
 
-[4. 실험](#3-실험) <br>
+[4. 실험](#4-실험) <br>
   - [baseline](#0-baseline)
+  - [실험A](#1-실험A)
+  - [실험B](#2-실험B)
+  - [실험C](#3-실험C)
 
-[5. 결과](#4-결과) <br>
+[5. 결과](#5-결과) <br>
 
-[6. 프로젝트 회고](#5-프로젝트-회고) <br>
+[6. 프로젝트 회고](#6-프로젝트-회고) <br>
   - [어려웠던 점](#어려웠던-점)
   - [보완할 점](#보완할-점)
 
@@ -254,49 +257,196 @@ $\color{blue}{\text{﻿Step 5-3. ﻿﻿﻿프론트엔드 (iOS)}}$
 # 3. 데이터
 - 데이터 전처리 이후 image 파일 이름과 label을 통해 추출한 정보
 
-<img width="280" height="340" alt="image" src="https://github.com/user-attachments/assets/8b2bcb81-7a25-42b4-8667-160239e91861" />
+- **데이터셋 구성:**
+- Train: 36,613장 (원본 29,546 + 오버샘플링 4,001 + Albumentations 6,012)
+- Valid: 3,713장
+- Test: 3,714장
+- 클래스: 28개 (Phase 0에서 4개 제거 + Phase 1에서 5개 추가 제거)
+- Workout Pose 이미지 1,633장 삭제 (`remove_workout_pose_v3.py`)
 
-<img width="900" height="400" alt="image" src="https://github.com/user-attachments/assets/0b56e586-4df5-4fcc-8c11-81994e8a6d75" />
+<img width="900" height="395" alt="image" src="https://github.com/user-attachments/assets/c4476fc5-27f8-444c-9194-774c05321899" />
 
-── Split 비율 체크 ──
-  Train: 35761장 (82.5%)
-  Valid: 3799장 (8.8%)
-  Test: 3790장 (8.7%)
-  
-<img width="175" height="220" alt="image" src="https://github.com/user-attachments/assets/7ed86e9d-13a8-4c3b-8061-db4004eaec41" />
+> -- 오버샘플링 / 증강 현황 ──
+  원본 이미지:       29,546장
+  오버샘플링 복사:    4,001장 (_os 접미사)
+  Albumentations:     6,012장 (_alb 접미사)
+  ────────────────────────────
+  합계:              36,613장
 
-<img width="900" height="245" alt="image" src="https://github.com/user-attachments/assets/c3453aad-9dc5-4a2e-82ff-0c1bb9efac2d" />
+> ── 증강 이미지의 클래스 분포 ──
+  Back_Extension: 1480장
+  Stationary_Bike: 1460장
+  Aerobic_Stepper: 1448장
+  T_Bar_Row: 1388장
+  Ab_Wheel: 1356장
+  Treadmill: 80장
+  Clubbell: 71장
+  Medicine_Ball: 70장
+  Elliptical: 50장
+  Kettlebell: 30장
+  Leg_Curl: 30장
+  Lat_Pulldown: 30장
+  Barbell: 20장
+  Cable_Machine: 2장
+
+<img width="900" height="245" alt="image" src="https://github.com/user-attachments/assets/820e12d9-64e2-4b9b-a1f1-f8920f77c467" />
+
+check_duplicates.py로 데이터 leak 처리 완료
+
+  ✅ 크로스 스플릿 중복 없음!
+
+### EDA에서 발견된 문제 및 조치 (fix_eda_issues.py로 처리 완료)
+| 문제 | 조치 | 상태 |
+|---|---|---|
+| 세그멘테이션 라벨 5개 혼입 | bbox(5컬럼)로 자름 + .cache 삭제 | ✅ 완료 |
+| Foam_Roller valid/test 0장 | train 원본에서 valid 7장, test 7장 이동 | ✅ 완료 |
+| Dumbbell_Rack valid 9장 (극소) | train 원본에서 valid로 5장 추가 이동 | ✅ 완료 |
+
+### 수정 불필요 확인 항목
+- ✅ 전체 640×640 고정 → imgsz=640 최적
+- ✅ Large BBox 90.5% → STAL 의존도 낮음, 기본 설정 적절
+- ✅ Split 비율 83/8/8 → 정상
+- ✅ 증강 설정 (Mosaic 1.0, MixUp 0.0) 유지 적절
+
 
 # 4. 실험
 
-## 0. baseline
+### 실험 목표
 
-|   name   | YOLO26 model | epoch | batch | imgsz | metric (mAP50) |
-|:--------:|:------------:|:-----:|:-----:|:-----:|:-----------------:|
-| baseline |     small    |   15  |  48  |  640  |       0.950      |
+| 실험 | 목표 |
+|------|------|
+| baseline | 기준 성능 확립 (빠른 학습으로 파이프라인 검증) |
+| 실험 A | 동일 모델로 epoch만 증가 시 성능 개선 폭 확인 |
+| 실험 B | 모델 스케일업(9.5M → 21.8M params) 효과 검증 |
+| 실험 C | 다른 참가자의 커스텀 가중치로 전이학습 효과 검증 |
 
+### 실험 세팅
 
-<img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/b2856bac-37b3-400e-b0e6-a4ccf7bce11f" />
+| 항목 | baseline | 실험 A | 실험 B | 실험 C |
+|------|----------|--------|--------|--------|
+| 모델 | yolo26s (9.5M) | yolo26s (9.5M) | yolo26m (21.8M) | yolo26s (9.5M) |
+| 초기 가중치 | yolo26s.pt (COCO) | yolo26s.pt (COCO) | yolo26m.pt (COCO) | small.pt (커스텀 12클래스) |
+| Epochs | 30 | 100 | 100 | 30 |
+| Patience | 7 | 20 | 20 | 7 |
+| Batch | 48 | 48 | 24 | 48 |
+| Time 제한 | 1.8시간 | 3시간 | 5시간 | 1.8시간 |
+| 최종 Epoch | 15 | 36 | 39 | 21 |
+| 종료 사유 | patience 조기종료 | time 제한 | time 제한 | time 제한 |
 
-> 유사 기구 혼동 매트릭스 결과
-<img width="450" height="400" alt="image" src="https://github.com/user-attachments/assets/d5337b30-0f62-462d-b0e1-9c9d5b8c02a5" />
+**공통 설정:** imgsz=640, optimizer=auto(MuSGD), mosaic=1.0, mixup=0.0, fliplr=0.5, cache=ram, amp=True
 
-> Test 이미지 추론 시각화 결과
-<img width="900" height="900" alt="image" src="https://github.com/user-attachments/assets/0a864ff9-392c-4c57-8ea9-b7b26f54e5e2" />
+## 실험 A: 동일 모델로 epoch만 증가 시 성능 개선 폭 확인 (small)
 
-## 실험 1: 외부 .pt 파일 (사용한 데이터셋의 일부(7개 중 1개 데이터셋으로 학습))이 학습에 반영 되었을때 성능 변화 비교 
+## 실험 B: 모델 스케일업(9.5M → 21.8M params) 효과 검증 (medium)
+
+## 실험 C: 외부 .pt 파일 (사용한 데이터셋의 일부(7개 중 1개 데이터셋으로 학습)) 가중치파일이 전이모델로 학습에 반영 되었을때 성능 변화 비교) (small) 
 - 같은 주제를 선정한 정영석님의 small.pt를 학습에 활용
-
-## 실험 2: model size & epoch 변경 (medium, nano)
-- 같은 주제를 선정한 정영석님의 nano.pt, small.pt, medium.pt 를 학습에 활용
 
 # 5. 결과
 
-## 실험 1: 외부 .pt파일 적용 결과
+### 5-1. 전체 성능 비교
 
-## 실험 2: model size & epoch 변경 결과
+| 실험 | mAP@50 | mAP@50:95 | Precision | Recall |
+|------|--------|-----------|-----------|--------|
+| baseline | 0.9554 | 0.8544 | 0.9316 | 0.9154 |
+| **실험 A** | **0.9659** | 0.8723 | 0.9307 | **0.9394** |
+| 실험 B | 0.9655 | **0.8742** | **0.9456** | 0.9325 |
+| 실험 C | 0.9514 | 0.8542 | 0.9192 | 0.9185 |
 
-# 6. 프로젝트 회고
+<img width="1000" height="250" alt="image" src="https://github.com/user-attachments/assets/96892324-cf7a-4904-8023-a3eba0cfeb3b" />
+
+### 5-2. 하위 클래스 성능 비교 (핵심)
+
+서비스 품질을 결정하는 하위 5개 클래스의 mAP@50:
+
+| 클래스 | baseline | 실험 A | 실험 B | 실험 C | 최고 |
+|--------|----------|--------|--------|--------|------|
+| Dumbbell | 0.772 | 0.801 | **0.828** | 0.769 | 실험 B |
+| Elliptical | 0.751 | **0.847** | 0.840 | 0.738 | 실험 A |
+| Hip_Abductor | 0.905 | **0.950** | 0.917 | 0.919 | 실험 A |
+| Kettlebell | **0.929** | 0.890 | 0.917 | 0.891 | baseline |
+| Medicine_Ball | 0.861 | 0.884 | **0.893** | 0.814 | 실험 B |
+
+<img width="700" height="345" alt="image" src="https://github.com/user-attachments/assets/e03bc507-4d87-4deb-811d-add5e2199ff4" />
+
+**분석:**
+- Elliptical이 baseline 0.751 → 실험 A에서 0.847로 가장 큰 폭 개선 (+0.096)
+- Dumbbell은 실험 B(medium 모델)에서 0.828로 최고이나, 여전히 전체 클래스 중 최하위
+- Kettlebell은 baseline이 가장 높은 특이 케이스 — epoch 증가가 오히려 과적합을 유발한 가능성
+
+### 5-3. Dumbbell ↔ Barbell 혼동 분석
+
+| 실험 | Dumbbell→Barbell | Barbell→Dumbbell | Dumbbell mAP50 | Barbell mAP50 |
+|------|------------------|------------------|----------------|---------------|
+| baseline | 5건 (0.6%) | 10건 (9.3%) | 0.772 | 0.961 |
+| **실험 A** | **2건 (0.2%)** | 8건 (7.2%) | 0.801 | 0.959 |
+| 실험 B | 4건 (0.5%) | 8건 (7.2%) | **0.828** | **0.969** |
+| 실험 C | 7건 (0.9%) | 5건 (5.0%) | 0.769 | 0.951 |
+
+**분석:**
+- Barbell→Dumbbell 오분류가 모든 실험에서 5~9%로 지속적으로 높음
+- 이는 Barbell 이미지 중 일부가 Dumbbell과 시각적으로 매우 유사하기 때문
+- 실험 A에서 Dumbbell→Barbell 오분류가 0.2%로 가장 낮음
+- Workout Pose 이미지 삭제(1,633장) 후에도 근본적 해결은 어려움 — 추가 데이터 수집 필요
+
+### 5-4. 유사 기구 혼동 분석 (실험 A 기준)
+
+| 기구 쌍 | A→B 오분류 | B→A 오분류 | 판정 |
+|---------|-----------|-----------|------|
+| Chest_Press ↔ Shoulder_Press | 1.8% | 0.9% | ✅ 양호 |
+| Leg_Curl ↔ Leg_Extension | 0.0% | 1.4% | ✅ 양호 |
+| Elliptical ↔ Stationary_Bike | 0.0% | 0.0% | ✅ 완벽 분리 |
+| Aerobic_Stepper ↔ Plyo_Box | 0.0% | 0.0% | ✅ 완벽 분리 |
+| Kettlebell ↔ Dumbbell | 0.0% | 0.1% | ✅ 양호 |
+| Dumbbell ↔ Barbell | 0.2% | 7.2% | ⚠️ Barbell→Dumbbell 주의 |
+
+<img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/18d6b5ed-508c-459b-9bed-f34ed18d9cfd" />
+
+---
+
+### 5-5. 실험별 분석
+
+> 실험 A vs baseline (epoch 증가 효과)
+- mAP@50: 0.9554 → 0.9659 (+0.0105)
+- Recall: 0.9154 → 0.9394 (+0.024) — 미탐지 감소 효과 큼
+- Elliptical: 0.751 → 0.847 — 가장 약했던 클래스에서 대폭 개선
+- **결론: epoch 증가는 확실히 효과적. 15 epoch에서 조기종료는 너무 이른 시점이었음**
+
+> 실험 B vs 실험 A (모델 스케일업 효과)
+- mAP@50: 0.9659 vs 0.9655 — 거의 동일 (0.0004 차이)
+- mAP@50:95: 0.8723 vs 0.8742 — 실험 B가 약간 우위 (더 엄격한 IoU에서 강점)
+- Precision: 0.9307 vs 0.9456 — 실험 B가 우위 (오탐 감소)
+- Dumbbell: 0.801 vs 0.828 — 실험 B가 우위 (세밀한 구분에서 medium 모델 강점)
+- **결론: 전체 성능은 동일하나 세밀한 구분(Dumbbell, Precision)에서 medium 모델이 약간 우위. 그러나 모델 크기 2.3배 대비 성능 향상이 미미하여 비용 대비 효율 낮음**
+
+> 실험 C vs baseline (전이학습 효과)
+- mAP@50: 0.9514 vs 0.9554 — baseline보다 오히려 낮음
+- 모든 지표에서 baseline 이하
+- **결론: 12클래스/512px/1개 데이터셋으로 학습된 커스텀 가중치는 COCO pretrained 대비 효과 없음. 오히려 도메인 불일치로 성능 하락**
+
+### 5-6. 최종 모델 선정
+
+### 🏆 서비스용 최종 모델: 실험 A (yolo26s, 36 epochs)
+
+| 항목 | 값 |
+|------|-----|
+| 모델 | yolo26s (9,476,016 parameters) |
+| 가중치 | `runs/detect/gym_yolo26s_100ep/weights/best.pt` |
+| mAP@50 | 0.9659 |
+| mAP@50:95 | 0.8723 |
+| Precision | 0.9307 |
+| Recall | 0.9394 |
+| 추론 속도 | ~1.8ms/image (RTX 5080) |
+
+### 선정 사유
+1. **mAP@50 최고 성능** (0.9659)
+2. **Recall 최고** (0.9394) — 미탐지가 적어 서비스 UX에 유리
+3. **경량 모델** — yolo26m 대비 모델 크기 절반(9.5M vs 21.8M), 추론 속도 2배
+4. **동등한 성능** — yolo26m(실험 B)과 mAP@50 차이 0.0004로 실사용 구분 불가
+
+# 6. Gradio 서비스 및 app 서비스 구현
+
+# 7. 프로젝트 회고
 
 ### 어려웠던 점
 - 이미지가 3만 - 4만개 정도의 적은 데이터양이지만 small 모델을 사용해도 batch 48의 경우 1개 epoch마다 7분 이상 소요되어 다양한 시도를 해보기 쉽지 않았습니다.
@@ -308,7 +458,11 @@ $\color{blue}{\text{﻿Step 5-3. ﻿﻿﻿프론트엔드 (iOS)}}$
 - 제공하는 자세에 대한 참고 이미지는 구글링을 통해 찾은 뒤 보정을 한 이미지로 상업적 사용이 불가능합니다. 하지만 YOLO의 Pose estimation 등을 사용해 유튜브의 자세 교육 동영상들을 학습하여 자체 데이터 생성이 가능해 보입니다.
 - 온디바이스의 경우 사용자의 자세를 실시간 입력해 자세 교정 멘트를 제공할수도 있습니다.
 - 장비들마다 훨씬 많은 방대한 운동법이 있으나 대표적인 운동만 추가한것으로 차후 더 많은 내용을 추가 가능합니다.
+- Dumbbell mAP@50: 0.801 — 28개 클래스 중 최하위. 추가 데이터 수집 또는 하드 네거티브 마이닝 필요
+- Barbell→Dumbbell 오분류 7.2% — 유사 형태 기구의 구조적 한계. 후처리 로직 또는 사용자 확인 UI로 보완
+- baseline과 실험 A가 중간 interrupt 이후 재 학습으로 csv가 생성되지 않아 학습곡선 분석 실패. 
 
+<img width="1000" height="500" alt="image" src="https://github.com/user-attachments/assets/54c46e34-ad49-454c-95ec-255e55709665" />
 
 
 
