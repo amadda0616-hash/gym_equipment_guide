@@ -67,20 +67,20 @@
 
 ### 데이터셋 주소
 
-1. Fitness Equipment Recognition Computer Vision Model 
-https://universe.roboflow.com/fitness-equipment-recognition-colin-pruzek/fitness-equipment-recognition-wlluo/dataset/3
-2. fitness_equipments Computer Vision Dataset
-https://universe.roboflow.com/athenazhang/fitness_equipments/dataset/3
-3. Gym Equipment Detector Computer Vision Model 
-https://universe.roboflow.com/hamzas-workspace-lgrj3/gym-equipment-detector-xzyer/dataset/3
-4. Gym Equipment Computer Vision Dataset
-https://universe.roboflow.com/xiaoshis-workspace/gym-equipment-t6kck/dataset/1
-5. Gym Computer Vision Model
-[https://universe.roboflow.com/myworkspace-czk94/gym-equipment-qkvbl/dataset/1](https://universe.roboflow.com/data-science-afe7n/gym-5mrjy/dataset/1)
+1. Fitness Equipment Recognition Computer Vision Model     
+https://universe.roboflow.com/fitness-equipment-recognition-colin-pruzek/fitness-equipment-recognition-wlluo/dataset/3    
+2. fitness_equipments Computer Vision Dataset    
+https://universe.roboflow.com/athenazhang/fitness_equipments/dataset/3    
+3. Gym Equipment Detector Computer Vision Model     
+https://universe.roboflow.com/hamzas-workspace-lgrj3/gym-equipment-detector-xzyer/dataset/3    
+4. Gym Equipment Computer Vision Dataset    
+https://universe.roboflow.com/xiaoshis-workspace/gym-equipment-t6kck/dataset/1    
+5. Gym Computer Vision Model    
+[https://universe.roboflow.com/myworkspace-czk94/gym-equipment-qkvbl/dataset/1](https://universe.roboflow.com/data-science-afe7n/gym-5mrjy/dataset/1)    
 6. 
   
-7.  LA Fitness Machines Computer Vision Model
-https://universe.roboflow.com/gymlens-for-la-fitness-mvp-6lhrg/la-fitness-machines-jrgny/dataset/2
+7.  LA Fitness Machines Computer Vision Model    
+https://universe.roboflow.com/gymlens-for-la-fitness-mvp-6lhrg/la-fitness-machines-jrgny/dataset/2    
 
 # 2. 파이프라인
 
