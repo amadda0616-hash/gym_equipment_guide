@@ -223,7 +223,7 @@ $\color{blue}{\text{﻿Step 3-4. ﻿﻿﻿﻿test 이미지 추론 시각화}}$
 
 ### $\color{blue}{\text{Phase 4: ﻿Gradio 웹 프로토타입 서비스}}$
 
-$\color{blue}{\text{﻿Step 4-1. ﻿메타데이터 (JSON) 고도화 (equipment guide_v4.json)}}$
+$\color{blue}{\text{﻿Step 4-1. ﻿메타데이터 (JSON) 고도화 (equipment guide v4.json)}}$
 
 ﻿> 학습이 완료된 타겟 클래스 28개(유산소 4종, 근력 24종)에 대한 전문가 수준의 JSON 데이터베이스를 구축 및 연동합니다.
 ﻿- 정보 구성: 기구 정밀 세팅법(machine_setup), 통증 발생 시 대처법(pain_management), 세부 운동 모드별 호흡법(breathing) 및 가이드.
