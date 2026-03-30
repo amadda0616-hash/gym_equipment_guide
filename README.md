@@ -6,6 +6,7 @@
 [1. 프로젝트 소개](#1-프로젝트-소개) <br>
   - [목표](#목표)
   - [데이터셋 주소](#데이터셋-주소)
+  - [개발 환경](#개발_환경)
   
 [2. 파이프라인](#2-파이프라인) <br>
   - [phase 0: 데이터 정제](#phase_0:_데이터_정제)
@@ -79,7 +80,22 @@ https://universe.roboflow.com/xiaoshis-workspace/gym-equipment-t6kck/dataset/1
 [https://universe.roboflow.com/myworkspace-czk94/gym-equipment-qkvbl/dataset/1](https://universe.roboflow.com/data-science-afe7n/gym-5mrjy/dataset/1)    
 6. 못 찾음 (기록 x)  
 7.  LA Fitness Machines Computer Vision Model    
-https://universe.roboflow.com/gymlens-for-la-fitness-mvp-6lhrg/la-fitness-machines-jrgny/dataset/2    
+https://universe.roboflow.com/gymlens-for-la-fitness-mvp-6lhrg/la-fitness-machines-jrgny/dataset/2
+
+### 개발 환경
+
+| 구분 | 환경 및 기술 | 설명 |
+| :--- | :--- | :--- |
+| **Hardware** | Intel Core i9 / 128GB RAM | 대규모 데이터셋 로드 및 안정적인 전처리 환경 |
+| **GPU** | NVIDIA GeForce RTX 5080 | 고성능 CUDA 가속을 통한 모델 학습 및 빠른 추론 |
+| **OS** | Windows 11 (WSL2 Ubuntu) | 리눅스 기반 모델 학습 및 서버 구동 환경 |
+| **Language** | Python 3.10+ | 주력 개발 언어 |
+| **AI Framework** | PyTorch 2.0+, CUDA 12.1 | 딥러닝 텐서 연산 및 GPU 가속 환경 |
+| **Vision Model** | Ultralytics YOLO (YOLO26s) | 객체 탐지(Object Detection) SOTA 모델 |
+| **IDE / Tools** | VS Code, Jupyter Notebook | 모델 실험(EDA/Train) 및 코드 작성 |
+| **Backend** | FastAPI, Uvicorn | 모델 추론 결과를 서빙하는 경량 비동기 API 서버 |
+| **Frontend UI** | Gradio 6.0 | 파이썬 기반의 인터랙티브 3-Page 웹 UI 구축 |
+| **Deployment** | PWA, ngrok | 모바일(iOS/Android) 홈 화면 추가 및 로컬 서버 터널링 |
 
 # 2. 파이프라인
 
