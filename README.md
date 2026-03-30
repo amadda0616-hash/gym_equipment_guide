@@ -14,7 +14,7 @@
   - [phase 2: 실험 (YOLO26 학습)](#phase_2:_실험)
   - [phase 3: 결과 (성능 검증)](#phase_3:_결과)
   - [phase 4: Gradio 웹서비스](#phase_4:_Gradio-웹서비스)
-  - [phase 5: ios 앱 서비스](#phase_5:_ios_앱_서비스) 
+  - [phase 5: 네이티브 앱 구축](#phase_5:_네이티브_앱_구축) 
 
 [3. 데이터](#3-데이터) <br>
   - [EDA 요약](#eda-요약)
