@@ -480,18 +480,18 @@ check_duplicates.py로 데이터 leak 처리 완료
 
    1) 아래 구조로 메타데이터 구성
       
-      equipment_guide.json
-      ├── heart_rate_zones: {Zone 1~5 설명}
-      └── equipment_list: {28개 기구}
-          └── 각 기구:
-              ├── category: "유산소 운동" | "근력운동"
-              ├── ko_name: "한글명"
-              ├── machine_setup: [셋업 순서] (근력 24개만)
-              ├── pre_post_stretching: {부위: 동작} (유산소 4개만)
-              ├── pain_management: {증상: 대처법}
-              └── exercise_modes: [
-                    {mode_name, breathing, guide: [포인트들]}
-                  ]
+      equipment_guide.json          
+      ├── heart_rate_zones: {Zone 1~5 설명}              
+      └── equipment_list: {28개 기구}              
+          └── 각 기구:                
+              ├── category: "유산소 운동" | "근력운동"            
+              ├── ko_name: "한글명"            
+              ├── machine_setup: [셋업 순서] (근력 24개만)             
+              ├── pre_post_stretching: {부위: 동작} (유산소 4개만)           
+              ├── pain_management: {증상: 대처법}              
+              └── exercise_modes: [            
+                    {mode_name, breathing, guide: [포인트들]}            
+                  ]              
     - 유산소(cardio), 근력(strength)로 구분하고 각 기구 마다 원하는 운동을 선택.
     - 기구 별 셋업 자세, 통증 대처법, 전후 스트레칭법 등을 제공
     - 운동 별 동작 예시 이미지, 유튜브 링크, 운동 강도(프로필에 따라 변경)
