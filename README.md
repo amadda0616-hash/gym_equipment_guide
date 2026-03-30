@@ -92,7 +92,7 @@ https://universe.roboflow.com/gymlens-for-la-fitness-mvp-6lhrg/la-fitness-machin
 | **Language** | Python 3.10+ | 주력 개발 언어 |
 | **AI Framework** | PyTorch 2.0+, CUDA 12.1 | 딥러닝 텐서 연산 및 GPU 가속 환경 |
 | **Vision Model** | Ultralytics YOLO (YOLO26s) | 객체 탐지(Object Detection) SOTA 모델 |
-| **IDE / Tools** | VS Code, Jupyter Notebook | 모델 실험(EDA/Train) 및 코드 작성 |
+| **IDE / Tools** | Antigravity, Jupyter Notebook | 모델 실험(EDA/Train) 및 코드 작성 |
 | **Backend** | FastAPI, Uvicorn | 모델 추론 결과를 서빙하는 경량 비동기 API 서버 |
 | **Frontend UI** | Gradio 6.0 | 파이썬 기반의 인터랙티브 3-Page 웹 UI 구축 |
 | **Deployment** | PWA, ngrok | 모바일(iOS/Android) 홈 화면 추가 및 로컬 서버 터널링 |
